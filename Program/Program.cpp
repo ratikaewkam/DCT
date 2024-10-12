@@ -1,12 +1,15 @@
 #include <iostream>
 #include <cmath>
+#include <vector>
 
 const double PI = 3.141592654;
 
-void dct(int data[], double cof[], int N)
+std::vector<double> dct(std::vector<int> data)
 {
     double f, s;
     int k, n;
+    int N = data.size();
+    std::vector<double> cof(N);
 
     for (k = 0; k < N; k++)
     {
@@ -27,22 +30,24 @@ void dct(int data[], double cof[], int N)
 
         cof[k] = 2 * f * s;
     }
+
+    return cof;
+}
+
+void print(std::vector<double> input)
+{
+    for (auto i : input)
+    {
+        std::cout << i << " ";
+    }
 }
 
 int main()
 {
-    int data[] = {1, 2, 3, 4};
-    int N = sizeof(data) / sizeof(data[0]);
-    double *output = new double[N];
-
-    dct(data, output, N);
-
-    // Print cof
-    int i;
-    for (i = 0; i < N; i++)
-    {
-        std::cout << output[i] << " ";
-    }
+    std::vector<int> data = {1, 2, 3, 4};
+    int N = data.size();
+    std::vector<double> output = dct(data);
+    print(output);
 
     return 0;
 }
